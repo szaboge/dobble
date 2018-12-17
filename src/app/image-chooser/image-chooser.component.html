@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="chooser">
+    <input multiple="true" type="file" (change)="changeListener($event)">
+  </div>
+  <div class="images">
+    <app-image *ngFor="let image of srcs" [src]="image"></app-image>
+  </div>
+</div>

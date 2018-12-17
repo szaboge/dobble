@@ -1,0 +1,15 @@
+.chooser {
+  display: inline-block;
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  padding: 12px;
+  border: 1px green solid;
+  display: flex;
+  flex-direction: column;
+}
