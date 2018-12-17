@@ -1,1 +1,7 @@
-<app-image-chooser></app-image-chooser>
+<app-image-chooser (srcs_emit)="srcs = $event"></app-image-chooser>
+<div class="generate">
+  <button (click)="generate()">Generálás</button>
+</div>
+<div #dest>
+
+</div>
