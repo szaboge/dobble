@@ -5,11 +5,12 @@
 .images {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 200px;
 }
 
 .container {
   padding: 12px;
-  border: 1px green solid;
   display: flex;
   flex-direction: column;
 }

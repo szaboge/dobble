@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-image-chooser',
@@ -8,11 +8,18 @@ import {Component, OnInit} from '@angular/core';
 export class ImageChooserComponent implements OnInit {
   srcs = [];
   maximum = 5;
+  selected = 0;
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  deleteImage(key: number) {
+    this.srcs.splice(key, 1);
+    this.selected = this.srcs.length;
   }
 
   changeListener(event) {
@@ -25,7 +32,12 @@ export class ImageChooserComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = e => {
       this.srcs.push(e.target['result']);
+      this.selected = this.srcs.length;
     };
     reader.readAsDataURL(file);
+  }
+
+  choosePicture() {
+    this.fileInput.nativeElement.click();
   }
 }

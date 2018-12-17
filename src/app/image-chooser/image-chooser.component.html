@@ -1,8 +1,11 @@
-<div class="container">
+<mat-card class="container">
   <div class="chooser">
-    <input multiple="true" type="file" (change)="changeListener($event)">
+    <button mat-raised-button color="primary" (click)="choosePicture()">
+      Képek kiválasztása
+    </button> {{selected}}/{{maximum}}
+    <input #fileInput  multiple="true" type="file" style="display: none" (change)="changeListener($event)">
   </div>
   <div class="images">
-    <app-image *ngFor="let image of srcs" [src]="image"></app-image>
+    <app-image *ngFor="let image of srcs;let i = index" (del)="deleteImage($event)" [key]="i" [src]="image"></app-image>
   </div>
-</div>
+</mat-card>

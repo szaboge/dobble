@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-image',
@@ -6,7 +6,9 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./image.component.scss']
 })
 export class ImageComponent implements OnInit {
+  @Input() key: number;
   @Input() src;
+  @Output() del = new EventEmitter<number>();
 
   constructor() {
   }
@@ -14,4 +16,7 @@ export class ImageComponent implements OnInit {
   ngOnInit() {
   }
 
+  delete_image() {
+    this.del.emit(this.key);
+  }
 }
