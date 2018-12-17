@@ -12,14 +12,17 @@ export class AppComponent {
 
   generate() {
     const can = this.createCanvas(500, 500);
-    this.insertImage(can, this.srcs[0], 200, 200);
+    this.insertImage(can, this.srcs[0], 250, 250, this.genRand(0, 360, 2), this.genRand(0.5, 2, 2));
     this.canvases.push(can);
     this.dest.nativeElement.appendChild(can);
   }
 
-  insertImage(can: HTMLCanvasElement, src: string, posX: number, posY) {
+  insertImage(can: HTMLCanvasElement, src: string, posX: number, posY, degree: number, scale: number) {
     const ctx = can.getContext('2d');
-    ctx.drawImage(this.createImage(src, 90), posX, posY);
+    const image = this.createImage(src, degree, scale);
+    const x = posX - image.width / 2;
+    const y = posY - image.height / 2;
+    ctx.drawImage(image, x, y);
   }
 
   createCanvas(width: number, height: number): HTMLCanvasElement {
@@ -34,18 +37,33 @@ export class AppComponent {
     return canvas;
   }
 
-  createImage(src: string, degree: number): HTMLCanvasElement {
+  createImage(src: string, degree: number, scale: number): HTMLCanvasElement {
     const image = new Image();
     image.src = src;
+    const maxSize = 100;
+
+    const nH = image.height >= image.width ? maxSize : image.height / image.width * maxSize;
+    const nW = image.width >= image.height ? maxSize : image.width / image.height * maxSize;
+
+    const sX = nH / image.height;
+    const sY = nW / image.width;
+
+    const side = Math.sqrt(Math.pow(nW, 2) + Math.pow(nH, 2)) * scale;
+
     const canvas = <HTMLCanvasElement>document.createElement('canvas');
-    canvas.width = image.width;
-    canvas.height = image.height;
+    canvas.width = side;
+    canvas.height = side;
     const ctx = canvas.getContext('2d');
-    ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate(degree * Math.PI / 180);
-    ctx.drawImage(image, -canvas.width / 2, -canvas.height / 2);
-    ctx.restore();
+    ctx.scale(scale * sX, scale * sY);
+    ctx.drawImage(image, -image.width / 2, -image.height / 2);
     return canvas;
+  }
+
+  genRand(minN, maxN, decimalPlaces) {
+    const rand = Math.random() * (maxN - minN) + minN;
+    const power = Math.pow(10, decimalPlaces);
+    return Math.floor(rand * power) / power;
   }
 }
