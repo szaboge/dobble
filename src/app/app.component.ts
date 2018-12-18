@@ -1,5 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import * as generator from 'dobble-generator';
+import {Config} from './intefaces/config.interface';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +8,30 @@ import * as generator from 'dobble-generator';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  stateC = 1;
+  stateI = 1;
+
+  config: Config = {symbols: 7, cards: 7, oneCard: 3};
   srcs = [];
   @ViewChild('dest') dest: ElementRef;
   canvases: Array<HTMLCanvasElement> = [];
+  cards = [];
 
   generate() {
-    console.log(generator.generate(2));
-    const can = this.createCanvas(500, 500);
-    this.insertImage(can, this.srcs[0], 250, 250, this.genRand(0, 360, 2), this.genRand(0.5, 2, 2));
-    this.canvases.push(can);
-    this.dest.nativeElement.appendChild(can);
+    this.cards = generator.generate(this.config.oneCard - 1);
+    console.log(this.cards);
+    for (let i = 0; i < this.cards.length; i++) {
+      const can = this.createCanvas(500, 500);
+      for (let j = 0; j < this.cards[i].length; j++) {
+        this.insertImage(can, this.srcs[this.cards[i][j]],
+          this.genRand(0, 500, 2),
+          this.genRand(0, 500, 2),
+          this.genRand(0, 360, 2),
+          this.genRand(0.5, 2, 2));
+      }
+      this.canvases.push(can);
+      this.dest.nativeElement.appendChild(can);
+    }
   }
 
   insertImage(can: HTMLCanvasElement, src: string, posX: number, posY, degree: number, scale: number) {

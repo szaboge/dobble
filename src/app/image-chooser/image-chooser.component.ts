@@ -1,13 +1,15 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-image-chooser',
   templateUrl: './image-chooser.component.html',
   styleUrls: ['./image-chooser.component.scss']
 })
-export class ImageChooserComponent implements OnInit {
+export class ImageChooserComponent implements OnInit, OnChanges {
   @ViewChild('fileInput') fileInput: ElementRef;
   @Output() srcs_emit = new EventEmitter<Array<string>>();
+  @Output() stateOfImage = new EventEmitter<number>();
+  @Input() maximum = 3;
 
   progress = 0;
   progress_ = false;
@@ -16,7 +18,6 @@ export class ImageChooserComponent implements OnInit {
 
   state = 1;
 
-  maximum = 5;
   selected = 0;
   srcs: Array<string> = [];
 
@@ -82,5 +83,10 @@ export class ImageChooserComponent implements OnInit {
     } else {
       this.state = 2;
     }
+    this.stateOfImage.emit(this.state);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.checkState();
   }
 }
