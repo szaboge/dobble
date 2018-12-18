@@ -1,11 +1,19 @@
 <mat-card class="container">
-  <div class="chooser">
-    <button mat-raised-button color="primary" (click)="choosePicture()">
-      Képek kiválasztása
-    </button> {{selected}}/{{maximum}}
-    <input #fileInput  multiple="true" type="file" style="display: none" (change)="changeListener($event)">
-  </div>
+  Képek kiválasztása
   <div class="images">
     <app-image *ngFor="let image of srcs;let i = index" (del)="deleteImage($event)" [key]="i" [src]="image"></app-image>
   </div>
+  <div class="chooser">
+    <div class="selected"><b>Min/Max:</b> {{selected}}/{{maximum}}</div>
+    <div class="indicator">
+      <span class="mdi mdi-alert" style="color: orange;" *ngIf="state === 1"></span>
+      <span class="mdi mdi-alert-circle" style="color: red" *ngIf="state === 2"></span>
+      <span class="mdi mdi-check" style="color: green" *ngIf="state === 0"></span>
+    </div>
+    <button mat-raised-button color="primary" (click)="choosePicture()">
+      Képek kiválasztása
+    </button>
+    <input #fileInput multiple="true" type="file" style="display: none" (change)="changeListener($event)">
+  </div>
+  <mat-progress-bar *ngIf="progress_" mode="determinate" [value]="progress"></mat-progress-bar>
 </mat-card>

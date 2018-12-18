@@ -1,5 +1,7 @@
 .chooser {
-  display: inline-block;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .images {
@@ -13,4 +15,14 @@
   padding: 12px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.selected{
+  margin-right: 12px;
+}
+
+.indicator {
+  font-size: 24px;
+  margin-right: 12px;
 }

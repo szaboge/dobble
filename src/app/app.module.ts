@@ -1,25 +1,33 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { ImageChooserComponent } from './image-chooser/image-chooser.component';
-import { ImageComponent } from './image-chooser/image/image.component';
+import {AppComponent} from './app.component';
+import {ImageChooserComponent} from './image-chooser/image-chooser.component';
+import {ImageComponent} from './image-chooser/image/image.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCardModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatProgressBarModule} from '@angular/material';
+import {ConfiguratorComponent} from './configurator/configurator.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ImageChooserComponent,
-    ImageComponent
+    ImageComponent,
+    ConfiguratorComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

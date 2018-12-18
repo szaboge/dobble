@@ -1,0 +1,23 @@
+<mat-card class="container">
+  Konfigurálás
+  <div class="configs">
+    <mat-form-field class="input" appearance="outline">
+      <mat-label>Szimbólumok száma</mat-label>
+      <input type="number" matInput placeholder="Szám" [(ngModel)]="symbols" (keyup)="checkInputs('symbols')">
+    </mat-form-field>
+    <mat-form-field class="input" appearance="outline">
+      <mat-label>Kártyák száma</mat-label>
+      <input type="number" matInput placeholder="Szám" [(ngModel)]="cards" (keyup)="checkInputs('cards')">
+    </mat-form-field>
+    <mat-form-field class="input" appearance="outline">
+      <mat-label>Egy kártyán lévő szimbólumok száma</mat-label>
+      <input type="number" matInput placeholder="Szám" [(ngModel)]="oneCardSymbols"
+             (keyup)="checkInputs('card-symbols')">
+    </mat-form-field>
+  </div>
+  <div class="indicator">
+    <span class="mdi mdi-alert" style="color: orange;" *ngIf="state === 1"></span>
+    <span class="mdi mdi-alert-circle" style="color: red" *ngIf="state === 2"></span>
+    <span class="mdi mdi-check" style="color: green" *ngIf="state === 0"></span>
+  </div>
+</mat-card>

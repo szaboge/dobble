@@ -1,4 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
+import * as generator from 'dobble-generator';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent {
   canvases: Array<HTMLCanvasElement> = [];
 
   generate() {
+    console.log(generator.generate(2));
     const can = this.createCanvas(500, 500);
     this.insertImage(can, this.srcs[0], 250, 250, this.genRand(0, 360, 2), this.genRand(0.5, 2, 2));
     this.canvases.push(can);
