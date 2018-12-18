@@ -11,6 +11,13 @@ export class ConfiguratorComponent implements OnInit {
   @Output() config = new EventEmitter<Config>();
   @Output() stateOfConfig = new EventEmitter<number>();
 
+  size = {
+    min: 200,
+    max: 1000,
+    value: 500,
+    step: 1
+  };
+
   symbols = 7;
   cards = 7;
   oneCardSymbols = 3;
@@ -61,7 +68,17 @@ export class ConfiguratorComponent implements OnInit {
       this.config.emit({
         symbols: this.symbols,
         cards: this.cards,
-        oneCard: this.oneCardSymbols
+        oneCard: this.oneCardSymbols,
+        symbol: {
+          distance: 50,
+          scalemin: 0.5,
+          scalemax: 2,
+          transformsize: 100
+        },
+        card: {
+          width: this.size.value,
+          height: this.size.value
+        }
       });
     } else {
       this.state = 1;
