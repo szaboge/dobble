@@ -18,6 +18,34 @@ export class ConfiguratorComponent implements OnInit {
     step: 1
   };
 
+  scalemin = {
+    min: 0.1,
+    max: 10,
+    value: 0.5,
+    step: 0.1
+  };
+
+  scalemax = {
+    min: 0.1,
+    max: 10,
+    value: 2,
+    step: 0.1
+  };
+
+  distance = {
+    min: 0,
+    max: 1000,
+    value: 125,
+    step: 1
+  };
+
+  border = {
+    min: 0,
+    max: 25,
+    value: 0,
+    step: 0.1
+  };
+
   symbols = 7;
   cards = 7;
   oneCardSymbols = 3;
@@ -70,14 +98,15 @@ export class ConfiguratorComponent implements OnInit {
         cards: this.cards,
         oneCard: this.oneCardSymbols,
         symbol: {
-          distance: 50,
-          scalemin: 0.5,
-          scalemax: 2,
+          distance: this.distance.value,
+          scalemin: this.scalemin.value,
+          scalemax: this.scalemax.value,
           transformsize: 100
         },
         card: {
           width: this.size.value,
-          height: this.size.value
+          height: this.size.value,
+          borderWidth: this.border.value
         }
       });
     } else {

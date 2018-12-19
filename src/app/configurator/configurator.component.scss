@@ -23,3 +23,32 @@
   justify-content: flex-end;
   font-size: 24px;
 }
+
+.inner-container {
+  max-width: 26rem;
+  width: 100%;
+  padding: 12px;
+
+  .slider-container {
+    display: flex;
+    flex-wrap: wrap;
+    .slider {
+      width: 70%;
+    }
+    .input-slider {
+      font-size: large;
+      width: 15%;
+      text-align: center;
+      padding: 0;
+      border: 0;
+    }
+    .input-unit {
+      width: 5%;
+      display: flex;
+      align-items: center;
+      padding: 8px;
+    }
+  }
+}
+
+

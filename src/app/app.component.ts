@@ -1,6 +1,8 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import * as generator from 'dobble-generator';
 import {Config} from './intefaces/config.interface';
+import {saveAs} from '@progress/kendo-file-saver';
+import * as JSZip from 'jszip';
 
 @Component({
   selector: 'app-root',
@@ -11,19 +13,7 @@ export class AppComponent {
   stateC = 1;
   stateI = 1;
 
-  config: Config = {
-    symbols: 7, cards: 7, oneCard: 3,
-    symbol: {
-      distance: 50,
-      scalemin: 0.5,
-      scalemax: 2,
-      transformsize: 100
-    },
-    card: {
-      width: 500,
-      height: 500
-    }
-  };
+  config: Config;
   srcs = [];
   @ViewChild('dest') dest: ElementRef;
   canvases: Array<HTMLCanvasElement> = [];
@@ -48,6 +38,7 @@ export class AppComponent {
   }
 
   clean() {
+    this.canvases = [];
     while (this.dest.nativeElement.firstChild) {
       this.dest.nativeElement.removeChild(this.dest.nativeElement.firstChild);
     }
@@ -67,9 +58,14 @@ export class AppComponent {
     canvas.height = height;
     const ctx = canvas.getContext('2d');
     ctx.beginPath();
-    ctx.arc(width / 2, height / 2, width / 2, 0, 2 * Math.PI, false);
+    ctx.arc(width / 2, height / 2, width / 2 - this.config.card.borderWidth / 2, 0, 2 * Math.PI, false);
     ctx.fillStyle = 'lightblue';
     ctx.fill();
+    if (this.config.card.borderWidth !== 0) {
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = this.config.card.borderWidth;
+      ctx.stroke();
+    }
     return canvas;
   }
 
@@ -145,5 +141,15 @@ export class AppComponent {
     }
 
     return array;
+  }
+
+  download() {
+    const jszip = new JSZip();
+    for (let i = 0; i < this.canvases.length; i++) {
+      jszip.file(i + '.png', this.canvases[i].toDataURL('image/png').split('base64,')[1], {base64: true});
+    }
+    jszip.generateAsync({type: 'blob'}).then(function (content) {
+      saveAs(content, 'dobble.zip');
+    });
   }
 }

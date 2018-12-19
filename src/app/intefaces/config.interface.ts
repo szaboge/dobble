@@ -11,5 +11,6 @@ export interface Config {
   card: {
     width: number;
     height: number;
+    borderWidth: number;
   };
 }
