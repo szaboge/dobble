@@ -24,17 +24,16 @@ export class ImageChooserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataStore.config.subscribe((config) => {
-      this.maximum = config.symbols;
-      this.checkState();
+    this.dataStore.configState.subscribe((object) => {
+      this.maximum = object.config.symbols;
+      this.next();
     });
   }
 
   deleteImage(key: number) {
     this.srcs.splice(key, 1);
     this.selected = this.srcs.length;
-    this.dataStore.images.next(this.srcs);
-    this.checkState();
+    this.next();
   }
 
   changeListener(event) {
@@ -48,10 +47,9 @@ export class ImageChooserComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = e => {
       this.srcs.push(e.target['result']);
-      this.dataStore.images.next(this.srcs);
       this.selected = this.srcs.length;
       this.progressSetter();
-      this.checkState();
+      this.next();
     };
     reader.readAsDataURL(file);
   }
@@ -77,6 +75,11 @@ export class ImageChooserComponent implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
+  next() {
+    this.checkState();
+    this.dataStore.imageState.next({state: this.state, images: this.srcs});
+  }
+
   checkState() {
     if (this.maximum === this.selected) {
       this.state = 0;
@@ -85,6 +88,5 @@ export class ImageChooserComponent implements OnInit {
     } else {
       this.state = 2;
     }
-    this.dataStore.stateImageChooser.next(this.state);
   }
 }

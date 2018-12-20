@@ -2,4 +2,15 @@
   padding: 12px;
   display: flex;
   margin-bottom: 12px;
+  flex-direction: column;
+}
+
+.generate {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.generate-button {
+  margin-right: 12px;
 }

@@ -1,12 +1,11 @@
 <mat-card class="container">
   <b>Generálás</b>
   <div class="generate">
-    <button mat-raised-button color="primary" (click)="generate()"
-            [disabled]="(dataStore.stateImageChooser | async)  !== 0
-            || (dataStore.stateConfigurator | async) !== 0 ">Generálás
+    <mat-checkbox [(ngModel)]="automate" color="primary" class="generate-button">Automatikus generálás</mat-checkbox>
+    <button class="generate-button" mat-raised-button color="primary" (click)="generate()"
+            [disabled]="stateI  !== 0
+            || stateC !== 0 ">Generálás
     </button>
-    <button mat-raised-button color="primary" (click)="download()" [disabled]="canvases.length === 0">Letöltés</button>
-  </div>
-  <div #dest>
+    <button mat-raised-button color="primary" (click)="download()" [disabled]="imageSources.length === 0">Letöltés</button>
   </div>
 </mat-card>

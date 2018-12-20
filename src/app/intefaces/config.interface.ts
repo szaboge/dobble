@@ -12,5 +12,6 @@ export interface Config {
     width: number;
     height: number;
     borderWidth: number;
+    backgroundColor: string;
   };
 }

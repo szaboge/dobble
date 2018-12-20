@@ -49,6 +49,7 @@ export class ConfiguratorComponent implements OnInit {
   cards = 7;
   oneCardSymbols = 3;
   state = 1;
+  actualColor = '#A3D3E2';
 
   constructor(private dataStore: DataStoreService) {
   }
@@ -92,7 +93,11 @@ export class ConfiguratorComponent implements OnInit {
   checkState() {
     if (this.oneCardSymbols > 1 && this.symbols > 1 && this.cards > 1) {
       this.state = 0;
-      this.dataStore.config.next({
+    } else {
+      this.state = 1;
+    }
+    this.dataStore.configState.next({
+      config: {
         symbols: this.symbols,
         cards: this.cards,
         oneCard: this.oneCardSymbols,
@@ -105,12 +110,10 @@ export class ConfiguratorComponent implements OnInit {
         card: {
           width: this.size.value,
           height: this.size.value,
-          borderWidth: this.border.value
+          borderWidth: this.border.value,
+          backgroundColor: this.actualColor
         }
-      });
-    } else {
-      this.state = 1;
-    }
-    this.dataStore.stateConfigurator.next(this.state);
+      }, state: this.state
+    });
   }
 }

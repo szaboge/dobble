@@ -18,5 +18,5 @@
     </button>
     <input #fileInput multiple="true" type="file" style="display: none" (change)="changeListener($event)">
   </div>
-  <mat-progress-bar *ngIf="progress_" mode="determinate" [value]="progress"></mat-progress-bar>
+  <mat-progress-bar class="progress" *ngIf="progress_" mode="determinate" [value]="progress"></mat-progress-bar>
 </mat-card>

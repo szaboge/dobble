@@ -14,18 +14,29 @@ export class GeneratorComponent implements OnInit {
   @ViewChild('dest') dest: ElementRef;
   config: Config;
   images: Array<string> = [];
-  canvases: Array<HTMLCanvasElement> = [];
+  imageSources: Array<string> = [];
+  automate = false;
+  stateI = 1;
+  stateC = 1;
 
   constructor(private dataStore: DataStoreService) {
   }
 
   ngOnInit() {
-    this.dataStore.config.subscribe(config => this.config = config);
-    this.dataStore.images.subscribe(images => this.images = images);
+    this.dataStore.configState.subscribe((object) => {
+      this.stateC = object.state;
+      this.config = object.config;
+      this.automateGeneration();
+    });
+    this.dataStore.imageState.subscribe((object) => {
+      this.stateI = object.state;
+      this.images = object.images;
+      this.automateGeneration();
+    });
   }
 
   generate() {
-    this.clean();
+    this.imageSources = [];
     const cards = generator.generate(this.config.oneCard - 1);
     for (let i = 0; i < cards.length; i++) {
       const can = this.createCanvas(this.config.card.width, this.config.card.height);
@@ -37,16 +48,9 @@ export class GeneratorComponent implements OnInit {
           this.genRand(0, 360, 2),
           this.genRand(this.config.symbol.scalemin, this.config.symbol.scalemax, 2));
       }
-      this.canvases.push(can);
-      this.dest.nativeElement.appendChild(can);
+      this.imageSources.push(can.toDataURL('image/png'));
     }
-  }
-
-  clean() {
-    this.canvases = [];
-    while (this.dest.nativeElement.firstChild) {
-      this.dest.nativeElement.removeChild(this.dest.nativeElement.firstChild);
-    }
+    this.dataStore.imageSources.next(this.imageSources);
   }
 
   insertImage(can: HTMLCanvasElement, src: string, posX: number, posY, degree: number, scale: number) {
@@ -64,7 +68,7 @@ export class GeneratorComponent implements OnInit {
     const ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.arc(width / 2, height / 2, width / 2 - this.config.card.borderWidth / 2, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'lightblue';
+    ctx.fillStyle = this.config.card.backgroundColor;
     ctx.fill();
     if (this.config.card.borderWidth !== 0) {
       ctx.strokeStyle = 'black';
@@ -150,12 +154,17 @@ export class GeneratorComponent implements OnInit {
 
   download() {
     const jszip = new JSZip();
-    for (let i = 0; i < this.canvases.length; i++) {
-      jszip.file(i + '.png', this.canvases[i].toDataURL('image/png').split('base64,')[1], {base64: true});
+    for (let i = 0; i < this.imageSources.length; i++) {
+      jszip.file(i + '.png', this.imageSources[i].split('base64,')[1], {base64: true});
     }
     jszip.generateAsync({type: 'blob'}).then(function (content) {
       saveAs(content, 'dobble.zip');
     });
   }
 
+  automateGeneration() {
+    if (this.automate && this.stateC === 0 && this.stateI === 0) {
+      this.generate();
+    }
+  }
 }

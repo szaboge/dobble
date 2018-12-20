@@ -7,10 +7,9 @@ import {Config} from './intefaces/config.interface';
 })
 export class DataStoreService {
 
-  stateConfigurator = new BehaviorSubject<number>(1);
-  stateImageChooser = new BehaviorSubject<number>(1);
-  config = new BehaviorSubject<Config>(null);
-  images = new BehaviorSubject<Array<string>>([]);
+  imageState = new BehaviorSubject<{ images: Array<string>, state: number }>({images: [], state: 1});
+  configState = new BehaviorSubject<{ config: Config, state: number }>({config: null, state: 1});
+  imageSources = new BehaviorSubject<Array<string>>([]);
 
   constructor() {
   }

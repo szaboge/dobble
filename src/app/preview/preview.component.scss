@@ -1,0 +1,25 @@
+.container {
+  padding: 12px;
+  display: flex;
+  margin-bottom: 12px;
+  flex-direction: column;
+}
+
+.preview {
+  width: 100%;
+}
+
+.button-icon-size {
+  font-size: 18px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+}

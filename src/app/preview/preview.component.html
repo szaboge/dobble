@@ -1,0 +1,19 @@
+<mat-card class="container">
+  <b>Előnézet</b>
+  <div class="preview">
+    <div class="navigation">
+      <button mat-icon-button color="primary" (click)="left()"
+              [disabled]="images.length === 0">
+        <span class="mdi mdi-chevron-left button-icon-size"></span>
+      </button>
+      {{actual}}/{{images.length}}
+      <button mat-icon-button color="primary" (click)="right()"
+              [disabled]="images.length === 0">
+        <span class="mdi mdi-chevron-right button-icon-size"></span>
+      </button>
+    </div>
+    <div class="image" *ngIf="images.length !== 0">
+      <img [src]="images[actual-1]" width="200" height="200">
+    </div>
+  </div>
+</mat-card>
