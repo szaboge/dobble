@@ -4,6 +4,7 @@ import * as generator from 'dobble-generator';
 import * as JSZip from 'jszip';
 import {Config} from '../intefaces/config.interface';
 import {DataStoreService} from '../data-store.service';
+import {SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-generator',
@@ -13,7 +14,7 @@ import {DataStoreService} from '../data-store.service';
 export class GeneratorComponent implements OnInit {
   @ViewChild('dest') dest: ElementRef;
   config: Config;
-  images: Array<string> = [];
+  images: Array<SafeUrl> = [];
   imageSources: Array<string> = [];
   automate = false;
   stateI = 1;
@@ -53,7 +54,7 @@ export class GeneratorComponent implements OnInit {
     this.dataStore.imageSources.next(this.imageSources);
   }
 
-  insertImage(can: HTMLCanvasElement, src: string, posX: number, posY, degree: number, scale: number) {
+  insertImage(can: HTMLCanvasElement, src: SafeUrl, posX: number, posY, degree: number, scale: number) {
     const ctx = can.getContext('2d');
     const image = this.createImage(src, degree, scale);
     const x = posX - image.width / 2;
@@ -71,16 +72,17 @@ export class GeneratorComponent implements OnInit {
     ctx.fillStyle = this.config.card.backgroundColor;
     ctx.fill();
     if (this.config.card.borderWidth !== 0) {
-      ctx.strokeStyle = 'black';
+      ctx.strokeStyle = this.config.card.borderColor;
       ctx.lineWidth = this.config.card.borderWidth;
       ctx.stroke();
     }
     return canvas;
   }
 
-  createImage(src: string, degree: number, scale: number): HTMLCanvasElement {
+  createImage(src: SafeUrl, degree: number, scale: number): HTMLCanvasElement {
     const image = new Image();
-    image.src = src;
+    const obj = {changingThisBreaksApplicationSecurity: null, ...src};
+    image.src = obj.changingThisBreaksApplicationSecurity;
     const maxSize = this.config.symbol.transformsize;
 
     const nH = image.height >= image.width ? maxSize : image.height / image.width * maxSize;

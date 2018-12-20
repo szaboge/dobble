@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DataStoreService} from '../data-store.service';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-image-chooser',
@@ -18,9 +19,9 @@ export class ImageChooserComponent implements OnInit {
   state = 1;
 
   selected = 0;
-  srcs: Array<string> = [];
+  srcs: Array<SafeUrl> = [];
 
-  constructor(private dataStore: DataStoreService) {
+  constructor(private dataStore: DataStoreService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -46,7 +47,8 @@ export class ImageChooserComponent implements OnInit {
   createImage(file: File) {
     const reader = new FileReader();
     reader.onload = e => {
-      this.srcs.push(e.target['result']);
+      const url = this.sanitizer.bypassSecurityTrustUrl(e.target['result']);
+      this.srcs.push(url);
       this.selected = this.srcs.length;
       this.progressSetter();
       this.next();

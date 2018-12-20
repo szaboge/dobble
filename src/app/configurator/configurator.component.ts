@@ -49,7 +49,8 @@ export class ConfiguratorComponent implements OnInit {
   cards = 7;
   oneCardSymbols = 3;
   state = 1;
-  actualColor = '#A3D3E2';
+  backgroundColor = '#A3D3E2';
+  borderColor = '#000000';
 
   constructor(private dataStore: DataStoreService) {
   }
@@ -111,9 +112,19 @@ export class ConfiguratorComponent implements OnInit {
           width: this.size.value,
           height: this.size.value,
           borderWidth: this.border.value,
-          backgroundColor: this.actualColor
+          borderColor: this.borderColor,
+          backgroundColor: this.backgroundColor
         }
       }, state: this.state
     });
+  }
+
+  colorSelect($event, type: string) {
+    if (type === 'background') {
+      this.backgroundColor = $event;
+    } else if (type === 'border') {
+      this.borderColor = $event;
+    }
+    this.checkState();
   }
 }

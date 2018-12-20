@@ -27,11 +27,15 @@
           [thumbLabel]="true"
           [(ngModel)]="size.value"
           (change)="checkState()"
-          class="slider"
-        >
+          class="slider">
         </mat-slider>
         <input type="number" class="input-slider" [(ngModel)]="size.value">
         <div class="input-unit">px</div>
+      </div>
+      <div class="container-picker">
+        Kártya háttérszíne:
+        <mcc-color-picker class="picker" selectedColor="{{backgroundColor}}"
+                          (selected)="colorSelect($event,'background')"></mcc-color-picker>
       </div>
     </div>
     <div class="inner-container">
@@ -54,10 +58,11 @@
                [(ngModel)]="border.value">
         <div class="input-unit">px</div>
       </div>
-    </div>
-    <div class="inner-container">
-      <mat-label>Kártya háttérszíne</mat-label>
-      <mcc-color-picker selectedColor="{{actualColor}}" (change)="checkState()" (selected)="actualColor = $event"></mcc-color-picker>
+      <div class="container-picker">
+        Szegély színe:
+        <mcc-color-picker class="picker" selectedColor="{{borderColor}}"
+                          (selected)="colorSelect($event,'border')"></mcc-color-picker>
+      </div>
     </div>
   </div>
   <b>Szimbólumok konfigurálása</b>

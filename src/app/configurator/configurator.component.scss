@@ -36,6 +36,17 @@
   background-color: #3748AC;
 }
 
+.container-picker {
+  max-width: 26rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.picker {
+  margin-left: 12px;
+}
+
 .inner-container {
   max-width: 26rem;
   width: 100%;
