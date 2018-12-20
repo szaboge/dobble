@@ -8,13 +8,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatProgressBarModule, MatSliderModule} from '@angular/material';
 import {ConfiguratorComponent} from './configurator/configurator.component';
 import {FormsModule} from '@angular/forms';
+import { GeneratorComponent } from './generator/generator.component';
+import {MccColorPickerModule} from 'material-community-components';
 
 @NgModule({
   declarations: [
     AppComponent,
     ImageChooserComponent,
     ImageComponent,
-    ConfiguratorComponent
+    ConfiguratorComponent,
+    GeneratorComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import {FormsModule} from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatSliderModule
+    MatSliderModule,
+    MccColorPickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

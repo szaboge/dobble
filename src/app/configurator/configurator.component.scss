@@ -24,6 +24,18 @@
   font-size: 24px;
 }
 
+::ng-deep .mat-accent .mat-slider-thumb {
+  background-color: #3748AC;
+}
+
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: #3748AC;
+}
+
+::ng-deep .mat-accent .mat-slider-thumb-label {
+  background-color: #3748AC;
+}
+
 .inner-container {
   max-width: 26rem;
   width: 100%;
@@ -32,9 +44,11 @@
   .slider-container {
     display: flex;
     flex-wrap: wrap;
+
     .slider {
       width: 70%;
     }
+
     .input-slider {
       font-size: large;
       width: 15%;
@@ -42,6 +56,7 @@
       padding: 0;
       border: 0;
     }
+
     .input-unit {
       width: 5%;
       display: flex;

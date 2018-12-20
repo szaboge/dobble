@@ -1,7 +1,9 @@
 <mat-card class="container">
   Képek kiválasztása
   <div class="images">
-    <div *ngIf="srcs.length === 0" class="noimages">Nincsenek képek</div>
+    <div *ngIf="srcs.length === 0" class="noimages-wrapper">
+      <div class="noimages">Nincsenek képek</div>
+    </div>
     <app-image *ngFor="let image of srcs;let i = index" (del)="deleteImage($event)" [key]="i" [src]="image"></app-image>
   </div>
   <div class="chooser">

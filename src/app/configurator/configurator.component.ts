@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Config} from '../intefaces/config.interface';
+import {Component, OnInit} from '@angular/core';
+import {DataStoreService} from '../data-store.service';
 
 @Component({
   selector: 'app-configurator',
@@ -8,42 +8,41 @@ import {Config} from '../intefaces/config.interface';
 })
 export class ConfiguratorComponent implements OnInit {
 
-  @Output() config = new EventEmitter<Config>();
-  @Output() stateOfConfig = new EventEmitter<number>();
-
   size = {
     min: 200,
     max: 1000,
     value: 500,
     step: 1
   };
-
   scalemin = {
     min: 0.1,
     max: 10,
     value: 0.5,
     step: 0.1
   };
-
   scalemax = {
     min: 0.1,
     max: 10,
     value: 2,
     step: 0.1
   };
-
   distance = {
     min: 0,
     max: 1000,
     value: 125,
     step: 1
   };
-
   border = {
     min: 0,
     max: 25,
     value: 0,
     step: 0.1
+  };
+  transformsize = {
+    min: 0,
+    max: 1000,
+    value: 100,
+    step: 1
   };
 
   symbols = 7;
@@ -51,7 +50,7 @@ export class ConfiguratorComponent implements OnInit {
   oneCardSymbols = 3;
   state = 1;
 
-  constructor() {
+  constructor(private dataStore: DataStoreService) {
   }
 
   ngOnInit() {
@@ -93,7 +92,7 @@ export class ConfiguratorComponent implements OnInit {
   checkState() {
     if (this.oneCardSymbols > 1 && this.symbols > 1 && this.cards > 1) {
       this.state = 0;
-      this.config.emit({
+      this.dataStore.config.next({
         symbols: this.symbols,
         cards: this.cards,
         oneCard: this.oneCardSymbols,
@@ -101,7 +100,7 @@ export class ConfiguratorComponent implements OnInit {
           distance: this.distance.value,
           scalemin: this.scalemin.value,
           scalemax: this.scalemax.value,
-          transformsize: 100
+          transformsize: this.transformsize.value
         },
         card: {
           width: this.size.value,
@@ -112,6 +111,6 @@ export class ConfiguratorComponent implements OnInit {
     } else {
       this.state = 1;
     }
-    this.stateOfConfig.emit(this.state);
+    this.dataStore.stateConfigurator.next(this.state);
   }
 }

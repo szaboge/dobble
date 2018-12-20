@@ -1,15 +1,14 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {DataStoreService} from '../data-store.service';
 
 @Component({
   selector: 'app-image-chooser',
   templateUrl: './image-chooser.component.html',
   styleUrls: ['./image-chooser.component.scss']
 })
-export class ImageChooserComponent implements OnInit, OnChanges {
+export class ImageChooserComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
-  @Output() srcs_emit = new EventEmitter<Array<string>>();
-  @Output() stateOfImage = new EventEmitter<number>();
-  @Input() maximum = 3;
+  maximum = 3;
 
   progress = 0;
   progress_ = false;
@@ -21,16 +20,20 @@ export class ImageChooserComponent implements OnInit, OnChanges {
   selected = 0;
   srcs: Array<string> = [];
 
-  constructor() {
+  constructor(private dataStore: DataStoreService) {
   }
 
   ngOnInit() {
+    this.dataStore.config.subscribe((config) => {
+      this.maximum = config.symbols;
+      this.checkState();
+    });
   }
 
   deleteImage(key: number) {
     this.srcs.splice(key, 1);
     this.selected = this.srcs.length;
-    this.srcs_emit.emit(this.srcs);
+    this.dataStore.images.next(this.srcs);
     this.checkState();
   }
 
@@ -45,7 +48,7 @@ export class ImageChooserComponent implements OnInit, OnChanges {
     const reader = new FileReader();
     reader.onload = e => {
       this.srcs.push(e.target['result']);
-      this.srcs_emit.emit(this.srcs);
+      this.dataStore.images.next(this.srcs);
       this.selected = this.srcs.length;
       this.progressSetter();
       this.checkState();
@@ -68,7 +71,6 @@ export class ImageChooserComponent implements OnInit, OnChanges {
     if (this.max_progress === this.actual_progress) {
       this.progress_ = false;
     }
-
   }
 
   choosePicture() {
@@ -83,10 +85,6 @@ export class ImageChooserComponent implements OnInit, OnChanges {
     } else {
       this.state = 2;
     }
-    this.stateOfImage.emit(this.state);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.checkState();
+    this.dataStore.stateImageChooser.next(this.state);
   }
 }

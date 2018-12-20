@@ -1,11 +1,3 @@
-<app-configurator (config)="config = $event" (stateOfConfig)="stateC = $event"></app-configurator>
-<app-image-chooser (srcs_emit)="srcs = $event" (stateOfImage)="stateI = $event"
-                   [maximum]="config.symbols"></app-image-chooser>
-<div class="generate">
-  <button mat-raised-button color="primary" (click)="generate()" [disabled]="stateI !== 0 || stateC !== 0 ">Generálás
-  </button>
-  <button mat-raised-button color="primary" (click)="download()" [disabled]="canvases.length === 0">Letöltés</button>
-</div>
-<div #dest>
-
-</div>
+<app-configurator></app-configurator>
+<app-image-chooser></app-image-chooser>
+<app-generator></app-generator>

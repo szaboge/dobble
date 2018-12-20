@@ -1,5 +1,5 @@
 <mat-card class="container">
-  Konfigurálás
+  <b>Pakli konfigurálása</b>
   <div class="configs">
     <mat-form-field class="input" appearance="outline">
       <mat-label>Szimbólumok száma</mat-label>
@@ -14,6 +14,9 @@
       <input type="number" matInput placeholder="Szám" [(ngModel)]="oneCardSymbols"
              (keyup)="checkInputs('card-symbols')">
     </mat-form-field>
+  </div>
+  <b>Kártya konfigurálása</b>
+  <div class="configs">
     <div class="inner-container">
       <mat-label>Kártya méretének állítása</mat-label>
       <div class="slider-container">
@@ -32,6 +35,30 @@
       </div>
     </div>
     <div class="inner-container">
+      <mat-label>Szegély vastagsága</mat-label>
+      <div class="slider-container">
+        <mat-slider
+          [max]="border.max"
+          [min]="border.min"
+          [step]="border.step"
+          [thumbLabel]="true"
+          [(ngModel)]="border.value"
+          (change)="checkState()"
+          class="slider"
+        >
+        </mat-slider>
+        <input type="number" class="input-slider"
+               [max]="border.max"
+               [min]="border.min"
+               [step]="border.step"
+               [(ngModel)]="border.value">
+        <div class="input-unit">px</div>
+      </div>
+    </div>
+  </div>
+  <b>Szimbólumok konfigurálása</b>
+  <div class="configs">
+    <div class="inner-container">
       <mat-label>Skálázás minimuma</mat-label>
       <div class="slider-container">
         <mat-slider
@@ -44,7 +71,11 @@
           class="slider"
         >
         </mat-slider>
-        <input type="number" class="input-slider" [(ngModel)]="scalemin.value">
+        <input type="number" class="input-slider"
+               [max]="scalemin.max"
+               [min]="scalemin.min"
+               [step]="scalemin.step"
+               [(ngModel)]="scalemin.value">
         <div class="input-unit">x</div>
       </div>
     </div>
@@ -61,7 +92,11 @@
           class="slider"
         >
         </mat-slider>
-        <input type="number" class="input-slider" [(ngModel)]="scalemax.value">
+        <input type="number" class="input-slider"
+               [max]="scalemax.max"
+               [min]="scalemax.min"
+               [step]="scalemax.step"
+               [(ngModel)]="scalemax.value">
         <div class="input-unit">x</div>
       </div>
     </div>
@@ -78,24 +113,32 @@
           class="slider"
         >
         </mat-slider>
-        <input type="number" class="input-slider" [(ngModel)]="distance.value">
+        <input type="number" class="input-slider"
+               [max]="distance.max"
+               [min]="distance.min"
+               [step]="distance.step"
+               [(ngModel)]="distance.value">
         <div class="input-unit">px</div>
       </div>
     </div>
     <div class="inner-container">
-      <mat-label>Szegély vastagsága</mat-label>
+      <mat-label>Szimbólumok normalizált mérete</mat-label>
       <div class="slider-container">
         <mat-slider
-          [max]="border.max"
-          [min]="border.min"
-          [step]="border.step"
+          [max]="transformsize.max"
+          [min]="transformsize.min"
+          [step]="transformsize.step"
           [thumbLabel]="true"
-          [(ngModel)]="border.value"
+          [(ngModel)]="transformsize.value"
           (change)="checkState()"
           class="slider"
         >
         </mat-slider>
-        <input type="number" class="input-slider" [(ngModel)]="border.value">
+        <input type="number" class="input-slider"
+               [max]="transformsize.max"
+               [min]="transformsize.min"
+               [step]="transformsize.step"
+               [(ngModel)]="transformsize.value">
         <div class="input-unit">px</div>
       </div>
     </div>

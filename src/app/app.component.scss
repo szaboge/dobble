@@ -1,3 +1,9 @@
-.canvas{
+.canvas {
   background-color: cadetblue;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
