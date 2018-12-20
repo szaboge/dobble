@@ -1,0 +1,12 @@
+<mat-card class="container">
+  <b>Generálás</b>
+  <div class="generate">
+    <button mat-raised-button color="primary" (click)="generate()"
+            [disabled]="(dataStore.stateImageChooser | async)  !== 0
+            || (dataStore.stateConfigurator | async) !== 0 ">Generálás
+    </button>
+    <button mat-raised-button color="primary" (click)="download()" [disabled]="canvases.length === 0">Letöltés</button>
+  </div>
+  <div #dest>
+  </div>
+</mat-card>
