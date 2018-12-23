@@ -1,5 +1,28 @@
 <mat-card class="container">
-  <b>Előnézet</b>
+  <div class="title">
+    <div>
+      <b>Előnézet</b>
+    </div>
+    <div class="slider">
+      <div class="slider-container">
+        <mat-slider
+          [max]="size.max"
+          [min]="size.min"
+          [step]="size.step"
+          [thumbLabel]="true"
+          [(ngModel)]="size.value"
+          class="slider"
+        >
+        </mat-slider>
+        <input type="number" class="input-slider"
+               [max]="size.max"
+               [min]="size.min"
+               [step]="size.step"
+               [(ngModel)]="size.value">
+        <div class="input-unit">px</div>
+      </div>
+    </div>
+  </div>
   <div class="preview">
     <div class="navigation">
       <button mat-icon-button color="primary" (click)="left()"
@@ -12,8 +35,11 @@
         <span class="mdi mdi-chevron-right button-icon-size"></span>
       </button>
     </div>
+    <div class="no-deck" *ngIf="images.length === 0">
+      Nincs megjeleníthető pakli
+    </div>
     <div class="image" *ngIf="images.length !== 0">
-      <img [src]="images[actual-1]" width="200" height="200">
+      <img [src]="images[actual-1]" [height]="size.value" [width]="size.value">
     </div>
   </div>
 </mat-card>

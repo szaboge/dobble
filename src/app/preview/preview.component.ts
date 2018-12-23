@@ -11,6 +11,13 @@ export class PreviewComponent implements OnInit {
   images: Array<string>;
   actual = 0;
 
+  size = {
+    min: 200,
+    max: 1000,
+    value: 400,
+    step: 1
+  };
+
   constructor(private dataStore: DataStoreService) {
   }
 
@@ -39,5 +46,9 @@ export class PreviewComponent implements OnInit {
     } else {
       this.actual++;
     }
+  }
+
+  sizeChange() {
+
   }
 }

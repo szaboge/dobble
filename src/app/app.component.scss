@@ -1,9 +1,20 @@
-.canvas {
-  background-color: cadetblue;
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "preview-area preview-area configure-area" "preview-area preview-area configure-area" "preview-area preview-area configure-area" "picture-area picture-area picture-area";
 }
 
-.container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.picture-area {
+  grid-area: picture-area;
+}
+
+.preview-area {
+  grid-area: preview-area;
+  padding-bottom: 6px;
+}
+
+.configure-area {
+  grid-area: configure-area;
+  padding-left: 6px;
 }

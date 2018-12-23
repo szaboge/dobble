@@ -74,13 +74,13 @@ export class ConfiguratorComponent implements OnInit {
     } else if (type === 'symbols') {
       let i = 1;
       let symbols = Math.pow(i, 2) + i + 1;
-      while (i < 20 && symbols < this.symbols && this.symbols !== null) {
+      while (i < 20 && symbols <= this.symbols && this.symbols !== null) {
         i++;
         symbols = Math.pow(i, 2) + i + 1;
       }
       if (i !== 20 && this.symbols != null) {
-        this.cards = symbols;
-        this.oneCardSymbols = i + 1;
+        this.cards = Math.pow(i - 1, 2) + i;
+        this.oneCardSymbols = i;
       }
 
     } else if (type === 'card-symbols') {

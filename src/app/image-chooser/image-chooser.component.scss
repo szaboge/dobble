@@ -6,16 +6,14 @@
 
 .images {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
+  overflow: scroll;
 }
 
 .container {
   padding: 12px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
 }
 
 .selected{
@@ -40,12 +38,14 @@
 }
 
 .noimages-wrapper {
-  height: 128px;
+  height: 104px;
   width: 90%;
   display: flex;
   align-items: center;
+  margin: auto;
 }
 
 .progress {
-  margin-top: 12px;
+  width: 30%;
+  margin-right: 12px;
 }

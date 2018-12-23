@@ -2,20 +2,42 @@
   padding: 12px;
   display: flex;
   flex-direction: column;
+}
+
+.configs-deck {
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  margin-top: 12px;
   margin-bottom: 12px;
+
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 14px;
 }
 
 .configs {
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  margin-top: 12px;
+  margin-bottom: 12px;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .input {
-  max-width: 26rem;
-  width: 100%;
-  margin: 12px;
-
+  width: 32%;
+  margin-left: 2px;
+  margin-right: 2px;
+  text-align: center;
 }
 
 .indicator {
@@ -48,21 +70,23 @@
 }
 
 .inner-container {
-  max-width: 26rem;
-  width: 100%;
-  padding: 12px;
+  font-size: 14px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 
   .slider-container {
     display: flex;
     flex-wrap: wrap;
 
     .slider {
-      width: 70%;
+      width: 100px;
+      min-width: 0;
     }
 
     .input-slider {
-      font-size: large;
-      width: 15%;
+      font-size: 16px;
+      width: 30%;
       text-align: center;
       padding: 0;
       border: 0;
@@ -76,5 +100,3 @@
     }
   }
 }
-
-

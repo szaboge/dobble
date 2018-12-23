@@ -1,5 +1,5 @@
 <mat-card class="container">
-  Képek kiválasztása
+  <b>Képek kiválasztása</b>
   <div class="images">
     <div *ngIf="srcs.length === 0" class="noimages-wrapper">
       <div class="noimages">Nincsenek képek</div>
@@ -7,6 +7,7 @@
     <app-image *ngFor="let image of srcs;let i = index" (del)="deleteImage($event)" [key]="i" [src]="image"></app-image>
   </div>
   <div class="chooser">
+    <mat-progress-bar class="progress" *ngIf="progress_" mode="determinate" [value]="progress"></mat-progress-bar>
     <div class="selected"><b>Kiválasztott/Maximum:</b> {{selected}}/{{maximum}}</div>
     <div class="indicator">
       <span class="mdi mdi-alert" style="color: orange;" *ngIf="state === 1"></span>
@@ -18,5 +19,4 @@
     </button>
     <input #fileInput multiple="true" type="file" style="display: none" (change)="changeListener($event)">
   </div>
-  <mat-progress-bar class="progress" *ngIf="progress_" mode="determinate" [value]="progress"></mat-progress-bar>
 </mat-card>
